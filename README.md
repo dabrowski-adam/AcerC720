@@ -23,7 +23,7 @@ So of late, Chromium's memory usage has been causing the machine to hardlock so 
 
 This should in theory limit Chromium from going crazy with resources and you could add Firefox or Midori or whatever to cgrules.  It's pretty extensible but I haven't fully tested it yet.  It doesn't seem to be used as much in Arch as I'd expect.
 
-This was based initially on a [gist](https://gist.github.com/juanje/9861623) by @juanje.
+This was based initially on a [gist](https://gist.github.com/juanje/9861623) by juanje.
 
 ## TRIM
 Either mount ext4/btrfs with discard, or systemctl enable fstrim.timer which will periodically run fstrim to clean up the HD.
