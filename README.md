@@ -6,24 +6,13 @@ So the [Archwiki](https://wiki.archlinux.org/index.php/Acer_C720_Chromebook) has
 Copying system.conf to /etc/systemd or setting RuntimeWatchdogSec to a value should have systemd enable the hardware watchdog.
 
 ## Trackpad
-Ugh, buy a mouse.
-If you're stuck with the trackpad, the synclient.sh can run on X startup.  Its ssets the trackpad to some more sensible defaults.  Still a bit of a challenge and I end up reaching for a mouse most of the time.
+Well as of 3.18 it is working acceptably.  My main issue is that the trackpage has a physical "click" which does nothing.  You have to tap on the trackpad to register a click which is the opposite of how most of my other machines work.  I'm still using a mouse most of the time.
+
+Another option I haven't had a chance to play with is [Hugh Greenberg's port of the cmt trackpad driver from ChromiumOS](https://github.com/hugegreenbug/xf86-input-cmt).  That should in theory work better than the synaptics.
 
 ## RAM
 yaourt -S zramswap; systemctl enable zramswap; systemctl start zramswap
 This will add zram compressed memory to the system as swap.
-
-### Controlling Chromium with cgroups
-So of late, Chromium's memory usage has been causing the machine to hardlock so I'm experimenting with using kernel cgroups to limit it to 1G of the ram.
-
-* Install libgroups from the AUR
-* copy the cgconfig.conf and cgrules.conf to /etc
-* systemctrl enable and systemctrl start cgconfig and cgrules
-* `cgget -a browsers` should show the cpu / memory limits
-
-This should in theory limit Chromium from going crazy with resources and you could add Firefox or Midori or whatever to cgrules.  It's pretty extensible but I haven't fully tested it yet.  It doesn't seem to be used as much in Arch as I'd expect.
-
-This was based initially on a [gist](https://gist.github.com/juanje/9861623) by @juanje.
 
 ## TRIM
 Either mount ext4/btrfs with discard, or systemctl enable fstrim.timer which will periodically run fstrim to clean up the HD.
